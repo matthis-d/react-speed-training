@@ -1,26 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Counter } from "./Counter";
 
-function App() {
+import styles from "./App.module.css";
+import { connect } from "react-redux";
+
+function App({ values, dispatch }) {
+  const [inputValue, setInputValue] = useState("");
+
+  // Get sum of all counts
+  const totalCount = values.reduce((sum, val) => sum + val.count, 0);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (inputValue) {
+      dispatch({ type: "ADD", payload: inputValue });
+      setInputValue("");
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.App}>
+      {values.map(value => (
+        <Counter key={value.label} label={value.label} />
+      ))}
+      <div>Total count: {totalCount}</div>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="counter-name">New counter:</label>
+        <input
+          name="counter-name"
+          id="counter-name"
+          value={inputValue}
+          onChange={e => setInputValue(e.target.value)}
+        />
+        <button disabled={!inputValue} type="submit">
+          Add
+        </button>
+      </form>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    values: state
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    dispatch
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

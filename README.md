@@ -1,3 +1,15 @@
+## Tips from Matthis
+
+- Read reactjs.org
+- https://overreacted.io/a-complete-guide-to-useeffect/
+- https://testing-library.com/docs/recipes
+- https://egghead.io/courses/getting-started-with-redux
+- https://reacttraining.com/react-router/web/guides/quick-start
+- https://redux.js.org/
+- https://redux-toolkit.js.org/
+
+## Doc from CRA
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
